@@ -26,7 +26,7 @@ block_header_t *heap_end = sbrk(0);
 while(curr<heap_end){
 size_t block_size = curr-> size_and_flag & ~ALLOCATED;
 
-if(!(curr->size_and_flag &ALLOCATED) && block_size> total_size){
+if(!(curr->size_and_flag &ALLOCATED) && block_size>= total_size){
 curr->size_and_flag = block_size | ALLOCATED;
 return (void*)(curr+1);
 }
