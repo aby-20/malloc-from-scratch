@@ -26,7 +26,7 @@ block_header_t *heap_end = sbrk(0);
 while(curr<heap_end){
 size_t block_size = curr-> size_and_flag & ~ALLOCATED;
 
-if(!(curr->size_and_flag &ALLOCATED) && block_size> total_size){
+if(!(curr->size_and_flag &ALLOCATED) && block_size>= total_size){
 curr->size_and_flag = block_size | ALLOCATED;
 return (void*)(curr+1);
 }
@@ -41,7 +41,7 @@ return (void *)(block+1);
 
 }
 
-void my_free(void *ptr){
+void aby_free(void *ptr){
 if(!ptr)
 return;
 
@@ -58,15 +58,15 @@ int main(void){
 int *p = aby_malloc(sizeof(int)*10);
 int *q = aby_malloc(sizeof(int)*10);
 
-my_free(p);
+aby_free(p);
 
 int *r = aby_malloc(sizeof(int)*5);
 
 printf("p= %p\n",(void*)p);
 printf("r = %p(should match p)\n",(void*)r);
 
-my_free(q);
-my_free(p);
+aby_free(q);
+aby_free(p);
 
 return 0;
 
